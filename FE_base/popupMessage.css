@@ -1,0 +1,50 @@
+.popup-msg {
+    position: fixed;
+    opacity: 0;
+    left: 40px;
+    bottom: 50px;
+    padding: 8px 28px;
+    min-width: 300px;
+    z-index: 100000;
+    background-color: var(--white-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: 0.5s;
+    z-index: 1000000000;
+    border: 1px solid rgb(106, 106, 106);
+}
+
+.popup-msg i {
+    margin-right: 16px;
+    font-size: 1.6rem;
+}
+
+.popup-msg-status {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+
+.popup-msg-content {
+    margin-top: 8px;
+    font-size: 1.3rem;
+}
+
+.success {
+    background-color: #bcf9ca;
+}
+
+.fail {
+    background-color: #ffb7b7;
+}
+
+.warning {
+    background-color: #fae7c7;
+}
+
+.info {
+    background-color: #b2e7f5;
+}
