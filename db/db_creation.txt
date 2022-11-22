@@ -1,0 +1,111 @@
+-- CREATE SCHEMA vart;
+USE vart;
+
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS arts;
+DROP TABLE IF EXISTS art_categories;
+DROP TABLE IF EXISTS lessons;
+DROP TABLE IF EXISTS courses;
+DROP TABLE IF EXISTS course_categories;
+DROP TABLE IF EXISTS blogs;
+DROP TABLE IF EXISTS blog_categories;
+DROP TABLE IF EXISTS admins;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+	id VARCHAR(50),
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    avatar VARCHAR(100) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    address TEXT NULL,
+    coin INT NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE admins (
+	user_id VARCHAR(50),
+	PRIMARY KEY(user_id)
+);
+
+CREATE TABLE blog_categories (
+	id VARCHAR(50),
+    title VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE blogs (
+	id VARCHAR(50),
+    blog_category_id VARCHAR(50) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    bg_img VARCHAR(100) NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY (blog_category_id) REFERENCES blog_categories(id) ON DELETE CASCADE
+);
+
+CREATE TABLE course_categories (
+	id VARCHAR(50),
+    title VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE courses (
+	id VARCHAR(50),
+    course_category_id VARCHAR(50) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    bg_img VARCHAR(100) NOT NULL,
+    price INT NOT NULL,
+    description TEXT NOT NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY (course_category_id) REFERENCES course_categories(id) ON DELETE CASCADE
+);
+
+CREATE TABLE lessons (
+	id VARCHAR(50),
+    course_id VARCHAR(50) NOT NULL,
+	title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+);
+
+CREATE TABLE art_categories (
+	id VARCHAR(50) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE arts (
+	id VARCHAR(50) NOT NULL,
+    art_category_id VARCHAR(50) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    bg_img VARCHAR(100) NOT NULL,
+    rating INT NOT NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (art_category_id) REFERENCES art_categories(id) ON DELETE CASCADE
+);
+
+CREATE TABLE comments (
+	id VARCHAR(50) NOT NULL,
+    course_id VARCHAR(50) NULL,
+    blog_id VARCHAR(50) NULL,
+    art_id VARCHAR(50) NULL,
+    lesson_id VARCHAR(50) NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE,
+    FOREIGN KEY (blog_id) REFERENCES blogs(id) ON DELETE CASCADE,
+    FOREIGN KEY (art_id) REFERENCES arts(id) ON DELETE CASCADE,
+    FOREIGN KEY (lesson_id) REFERENCES lessons(id) ON DELETE CASCADE
+);
