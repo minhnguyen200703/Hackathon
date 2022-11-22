@@ -1,0 +1,4 @@
+// Prevent resubmission when refreshing the page
+if (window.history.replaceState) {
+  window.history.replaceState(null, null, window.location.href);
+}
